@@ -1,0 +1,92 @@
+data_config:
+  dataset: 'replica_all'
+  data_dir: '/mnt/task_runtime/data/replica_all'
+  num_workers: 4
+  batch_size: 16
+  img_res: 64
+  seq_len: 4
+  step: 10
+  depth: True
+  center: 'mid'
+  normalize_rotation: False
+  rot_aug: False
+  single_sample_per_trajectory: True
+  train_set_config:
+    split: 'train'
+  val_set_config:
+    split: 'train'  # eval on same distribution as training
+    samples_per_epoch: 5000
+
+model_config:
+  target: models.gsn.GSN
+  params:
+    img_res: ???  # tied to img_res defined by data_config
+    lr: 0.002
+    ttur_ratio: 1.0  # controls ratio between G and D lr, where g_lr = lr and d_lr = lr * ttur_ratio
+    voxel_res: 32
+    voxel_size: 0.6
+    trajectory_mode: 'sample'
+
+    decoder_config:
+      target: models.generator.StyleGenerator2D
+      params:
+        out_res: ???  # defined by voxel_res
+        out_ch: 32
+        z_dim: 128
+        ch_mul: 1
+        ch_max: 256
+        skip_conn: False
+
+    generator_config:
+      target: models.generator.SceneGenerator
+      params:
+        img_res: ???  # set by data config img_res
+        feature_nerf: True  # set to True if nerf_out_res != img_res
+        global_feat_res: ???  # defined by voxel_res
+        coordinate_scale: ???  # defined by voxel_res and voxel_size
+        alpha_activation: 'softplus'
+        hierarchical_sampling: False
+        density_bias: 0
+        nerf_out_res: 32
+        samples_per_ray: 64
+        near: 0
+        far: 8
+        alpha_noise_std: 0
+
+        nerf_mlp_config:
+          target: models.generator.NerfStyleGenerator
+          params:
+            n_layers: 8
+            channels: 128
+            out_channel: 128
+            z_dim: ???  # defined by out_ch of the decoder
+            omega_coord: 10
+            omega_dir: 4
+            skips: [4]
+
+    texture_net_config:
+      target: models.generator.RenderNet2d
+      params:
+        in_channel: 128
+        in_res: ???  # set by generator nerf_out_res
+        out_res: ???  # img_res
+        mode: 'blur'
+        deep: False
+
+    loss_config:
+      target: models.losses.GSNLoss
+      params:
+        disc_loss: 'logistic'
+        concat_depth: True
+        recon_weight: 1000
+        r1_weight: 0.01
+        d_reg_every: 16
+        aug_policy: 'translation,color,cutout'
+
+        discriminator_config:
+          target: models.discriminator.StyleDiscriminator
+          params:
+            in_channel: ???  # depends on concat_depth
+            in_res: ???
+            ch_mul: 64
+            ch_max: 512

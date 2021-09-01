@@ -1,0 +1,27 @@
+name: gsn
+channels:
+  - conda-forge
+  - pytorch
+  - defaults
+dependencies:
+  - pip=20.1.1
+  - imageio=2.8.0
+  - numpy=1.18.5
+  - matplotlib=3.2.2
+  - pillow=7.1.2
+  - python=3.6.7
+  - scipy=1.4.1
+  - ipdb=0.13.0
+  - ninja=1.10.2
+  - openblas-devel=0.3.10
+  - jupyterlab=2.2
+  - pip:
+    - --find-links https://download.pytorch.org/whl/torch_stable.html
+    - torch==1.7.1+cu110
+    - torchvision==0.8.2+cu110
+    - einops==0.3.0
+    - omegaconf==2.1.0
+    - torch-fidelity==0.3.0
+    - tensorboard==2.6.0
+    - pytorch-lightning==1.4.4
+    - torchmetrics==0.5.0
