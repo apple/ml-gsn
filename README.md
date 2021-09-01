@@ -1,7 +1,3 @@
----
-title: Generative Scene Networks
----
-
 ## Unconstrained Scene Generation with Locally Conditioned Radiance Fields, [ICCV 2021](https://arxiv.org/abs/2104.00670)
 
 <p align="center">
