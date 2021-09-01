@@ -1,4 +1,4 @@
-## Unconstrained Scene Generation with Locally Conditioned Radiance Fields [[Arxiv 2021]](https://arxiv.org/abs/2104.00670)
+## Unconstrained Scene Generation with Locally Conditioned Radiance Fields [ICCV 2021](https://arxiv.org/abs/2104.00670)
 
 <p align="center">
   <img src="./gifs/spline_trajectory-2.gif" width="20%" />
@@ -97,7 +97,7 @@ We train GSN on scene level datasets composed of multiple scenes, generating vie
 ```
 
 ## Source code
-Coming soon
+Code is available [here] (<https://github.com/apple/ml-gsn>)
 
 ## Related links
 Check out recent related work on making radiance fields generalize to multiple objects/scenes:
