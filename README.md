@@ -5,7 +5,7 @@ Terrance DeVries, Miguel Angel Bautista, Nitish Srivastava, Graham W. Taylor, Jo
 ### [Project Page](https://apple.github.io/ml-gsn/) | [Paper](https://arxiv.org/abs/2104.00670) | [Data](#datasets)
 
 ## Requirements
-This code was tested with Python 3.6 and CUDA 11.1.1. A suitable conda environment named `gsn` can be created and activated with:
+This code was tested with Python 3.6 and CUDA 11.1.1, and uses Pytorch Lightning. A suitable conda environment named `gsn` can be created and activated with:
 ```
 conda env create -f environment.yaml python=3.6
 conda activate gsn
